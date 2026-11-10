@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASTRA — Estudiar mejor no es estudiar solo</title>
+<meta name="description" content="ASTRA, Asociación de Técnicas de estudio y Rendimiento Académico de la ETSII (Universidad de Sevilla): mentorías, talleres y apuntes hechos por estudiantes.">
+<meta name="theme-color" content="#0B1438">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="ASTRA">
+<meta property="og:title" content="ASTRA — Estudiar mejor no es estudiar solo">
+<meta property="og:description" content="Mentorías de la Escuela, talleres de técnicas de estudio y gente de la ETSII que ya ha pasado por lo que tú estás cursando.">
+<meta property="og:url" content="https://nadinerosita.github.io/ASTRAweb/">
+<meta property="og:image" content="https://nadinerosita.github.io/ASTRAweb/assets/img/mascota-orbita.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ASTRA — Estudiar mejor no es estudiar solo">
+<meta name="twitter:description" content="Mentorías de la Escuela, talleres de técnicas de estudio y gente de la ETSII que ya ha pasado por lo que tú estás cursando.">
+<meta name="twitter:image" content="https://nadinerosita.github.io/ASTRAweb/assets/img/mascota-orbita.png">
+
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&amp;family=JetBrains+Mono:wght@400;600;700&amp;family=Kalam:wght@400;700&amp;family=Oswald:wght@600&amp;display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<noscript><style>
+.hl, .hld { background-size: 100% 100%; } .hld { color: #0B1438; }
+.st { opacity: 1; } .astro, .tick, .mline path { stroke-dashoffset: 0; } .mline .dot { opacity: 1; }
+.sheets .s1 { transform: translate(-170px, 18px) rotate(-10deg); } .sheets .s3 { transform: translate(170px, 22px) rotate(9deg); }
+.stamp { opacity: 1; transform: translate(-50%, -50%) rotate(-12deg); }
+</style></noscript>
+<script src="js/main.js" defer></script>
+</head>
+<body>
+<div class="paper">
+
+<div class="topbar" id="topbar" aria-hidden="true"></div>
+<div class="margin-line" aria-hidden="true"></div>
+
+<!-- Índice lateral: seis estrellas en zigzag -->
+<nav class="rail" aria-label="Progreso de la página">
+<svg class="rail-lines" width="124" height="460" viewBox="0 0 124 460" aria-hidden="true">
+<polyline points="30,20 72,104 26,188 70,272 28,356 66,440" fill="none" stroke="#1EC0F5" stroke-opacity="0.35" stroke-width="1.4" stroke-dasharray="3 5"></polyline>
+<polyline id="rail-progress" points="30,20 72,104 26,188 70,272 28,356 66,440" fill="none" stroke="#1EC0F5" stroke-width="2.2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></polyline>
+</svg>
+<a href="#inicio" class="rail-star now" style="left: 30px; top: 20px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label">Inicio</span></a>
+<a href="#proxima" class="rail-star" style="left: 72px; top: 104px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label" id="rail-label-proxima">Asamblea</span></a>
+<a href="#mentorias" class="rail-star" style="left: 26px; top: 188px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label">Mentorías</span></a>
+<a href="#apuntes" class="rail-star" style="left: 70px; top: 272px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label">Apuntes</span></a>
+<a href="#bitacora" class="rail-star" style="left: 28px; top: 356px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label">Bitácora</span></a>
+<a href="#unete" class="rail-star" style="left: 66px; top: 440px"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="core" d="M10 1.5l2.3 5.6 6 .5-4.6 3.9 1.4 5.9L10 14.3 4.9 17.4l1.4-5.9L1.7 7.6l6-.5z"></path></svg><span class="rail-label">Únete</span></a>
+<div class="rail-guide" id="rail-guide" style="left: 30px; top: 20px"><img src="assets/img/mascota.png" alt="" width="283" height="287"></div>
+</nav>
+
+<main>
+<div class="night">
+<svg class="waves" viewBox="0 0 1440 760" preserveAspectRatio="none" aria-hidden="true">
+<g fill="none" stroke="#3A14F0" stroke-width="1.1" stroke-opacity=".55">
+<path d="M-40 120 C 320 30, 640 260, 1480 70"></path>
+<path d="M-40 140 C 320 52, 640 282, 1480 92" style="animation-delay: -2s"></path>
+<path d="M-40 160 C 320 74, 640 304, 1480 114" style="animation-delay: -4s"></path>
+<path d="M-40 180 C 320 96, 640 326, 1480 136" style="animation-delay: -6s"></path>
+</g>
+<g fill="none" stroke="#1EC0F5" stroke-width="1" stroke-opacity=".28">
+<path d="M-40 640 C 420 560, 900 760, 1480 600"></path>
+<path d="M-40 660 C 420 582, 900 782, 1480 622" style="animation-delay: -3s"></path>
+<path d="M-40 680 C 420 604, 900 804, 1480 644" style="animation-delay: -5s"></path>
+</g>
+</svg>
+
+<header class="wrap site-header">
+<a href="#inicio" class="logo-link"><img src="assets/img/logo-a.png" alt="" width="46" height="46"><span class="brand">ASTRA</span></a>
+<nav class="main-nav" aria-label="Principal">
+<a href="#proxima">Actividades</a>
+<a href="#mentorias">Mentorías</a>
+<a href="#apuntes">Apuntes</a>
+<a href="https://www.instagram.com/astra.etsii" data-instagram>Instagram</a>
+<a href="#unete" class="btn-sun btn-sm">Hazte miembro</a>
+</nav>
+</header>
+
+<section id="inicio" class="wrap hero" aria-labelledby="titular-inicio">
+<div class="hero-grid">
+<div class="hero-text">
+<p class="mono">Asociación de estudiantes · ETSII · Universidad de Sevilla</p>
+<h1 class="serif" id="titular-inicio">Estudiar mejor no es <span class="hld" id="hero-hl">estudiar solo.</span></h1>
+<p class="hero-lede">Mentorías de la Escuela, talleres de técnicas de estudio y gente de la ETSII que ya ha pasado por lo que tú estás cursando.</p>
+<div class="actions">
+<a href="#unete" class="btn-sun" id="cta-hero">Hazte miembro
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#mentorias" class="btn-line">Conocer las mentorías</a>
+</div>
+<p class="hand note">↑ gratis para estudiantes de la US</p>
+</div>
+
+<figure class="hero-figure">
+<svg class="constellation" id="constelacion" viewBox="0 0 440 440" role="img" aria-label="Constelación de 33 estrellas, una por cada miembro de ASTRA, con forma de A, y un hueco libre al final">
+<path class="astro" pathLength="1" d="M70 340 L100 285 L130 230 L160 170 L190 110 L220 50 L250 110 L280 170 L310 230 L340 285 L370 340" fill="none" stroke="#F5F0E4" stroke-opacity=".75" stroke-width="1.4"></path>
+<path class="astro astro-bar" pathLength="1" d="M130 230 L190 232 L250 228 L310 230" fill="none" stroke="#1EC0F5" stroke-width="2"></path>
+<path d="M370 340 L400 408" fill="none" stroke="#1EC0F5" stroke-width="1.5" stroke-dasharray="4 5"></path>
+<g id="estrellas"></g>
+<circle class="slotfill" id="slotfill" cx="400" cy="408" r="9"></circle>
+<circle class="slot" id="slot" cx="400" cy="408" r="15" fill="none" stroke="#1EC0F5" stroke-width="1.8" stroke-dasharray="3 4"></circle>
+</svg>
+<figcaption>
+<img class="bob" src="assets/img/mascota.png" alt="Astralita, la mascota de ASTRA" width="283" height="287">
+<span class="hand">¡Soy Astralita! <span data-miembros>33</span> estrellas, <span data-miembros>33</span> miembros.<br>El hueco de abajo es tuyo ↗</span>
+</figcaption>
+</figure>
+</div>
+</section>
+
+<svg class="torn" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
+<path d="M0 48 L0 30 L38 22 L74 31 L120 18 L168 27 L206 15 L250 26 L298 20 L340 31 L392 17 L436 25 L480 14 L530 28 L572 21 L620 30 L668 16 L712 24 L760 19 L806 32 L850 20 L900 27 L944 13 L990 25 L1036 18 L1084 29 L1128 16 L1172 26 L1220 20 L1266 31 L1310 17 L1356 25 L1400 19 L1440 27 L1440 48 Z" fill="#F5F0E4"></path>
+</svg>
+</div>
+
+<!-- Próxima actividad -->
+<section id="proxima" class="wrap section" aria-labelledby="titular-proxima">
+<p class="mono eyebrow">Nº 02 — Próxima actividad</p>
+<h2 class="serif h2" id="titular-proxima" style="margin-bottom: 56px" data-titulo-defecto="Asamblea General de Inicio de Curso">Empezamos el curso <span class="hl">en asamblea</span></h2>
+
+<div class="ticket" id="ticket">
+<span class="tape"></span>
+<span class="tape"></span>
+<div class="ticket-grid">
+<div class="ticket-date">
+<p class="serif ticket-day" id="act-dia">20</p>
+<p class="mono" id="act-fecha">Nov · 12:30</p>
+</div>
+<div class="ticket-body">
+<h3 class="serif" id="act-titulo">Asamblea General de Inicio de Curso</h3>
+<p class="ticket-desc" id="act-desc">Presentamos el plan de ASTRA para este curso y decidimos juntos qué hacemos. Trae tus ideas.</p>
+<p class="mono ticket-place"><span id="act-lugar">Lugar · Aula A2.11, ETSII</span><span id="act-abierta">&#160;·&#160; Abierta a todo el mundo, seas o no de ASTRA</span></p>
+<div class="actions">
+<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Asamblea%20General%20de%20Inicio%20de%20Curso%20%C2%B7%20ASTRA&amp;dates=20261120T113000Z/20261120T123000Z&amp;location=Aula%20A2.11%2C%20ETSII%2C%20Universidad%20de%20Sevilla" class="btn-ink" id="act-cal">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"></path></svg>
+Añadir a mi calendario</a>
+<a href="#unete" class="btn-line">Y si te gusta, hazte miembro</a>
+</div>
+</div>
+</div>
+<p class="hand countdown" id="act-cuenta">faltan 10 días ✎</p>
+</div>
+
+<div class="empty-card" id="proxima-vacia" hidden>
+<img class="bob" src="assets/img/mascota.png" alt="" width="283" height="287" loading="lazy">
+<div class="empty-card-body">
+<h3 class="serif">Pronto anunciamos la siguiente actividad.</h3>
+<p>Mientras tanto, todo lo que hacemos lo vas a ver antes en Instagram.</p>
+</div>
+<a href="https://www.instagram.com/astra.etsii" class="btn-ink" data-instagram>Seguir a @astra.etsii</a>
+</div>
+</section>
+
+<!-- Mentorías -->
+<section id="mentorias" class="wrap section mentor" aria-labelledby="titular-mentorias">
+<p class="mono eyebrow">Nº 03 — Mentorías</p>
+<h2 class="serif h2" id="titular-mentorias">Alguien que ya <span class="hl">ha estado ahí.</span></h2>
+<p class="lede">Nos encargamos de las mentorías de la Escuela: estudiantes con más recorrido que acompañan a quienes empiezan o se atascan.</p>
+<div class="mentor-row">
+<div class="icard">
+<span class="tape"></span>
+<p class="mono">Si empiezas o te atascas</p>
+<h3 class="serif">Quiero un mentor o mentora</h3>
+<p>Alguien de cursos superiores que te oriente con las asignaturas y con la Escuela.</p>
+<a href="mailto:astra.etsii@gmail.com?subject=Quiero%20un%20mentor%20o%20mentora" class="btn-ink" id="mentor-pedir">Pedir mentoría</a>
+</div>
+<svg class="mline" viewBox="0 0 200 120" aria-hidden="true">
+<path d="M14 92 C 60 10, 140 10, 186 60" fill="none" stroke="#3A14F0" stroke-width="2.4" stroke-dasharray="1" pathLength="1" stroke-linecap="round"></path>
+<path d="M172 44 L186 60 L166 64" fill="none" stroke="#3A14F0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1"></path>
+<circle class="dot" cx="14" cy="92" r="6" fill="#FFC83D" stroke="#172457" stroke-width="1.5"></circle>
+</svg>
+<div class="icard">
+<span class="tape"></span>
+<p class="mono">Si ya has pasado por ahí</p>
+<h3 class="serif">Quiero ser mentor o mentora</h3>
+<p>Comparte lo que te habría gustado saber en tu primer año.</p>
+<a href="mailto:astra.etsii@gmail.com?subject=Quiero%20ser%20mentor%20o%20mentora" class="btn-line" id="mentor-ofrecer">Quiero ayudar</a>
+</div>
+</div>
+</section>
+
+<!-- Apuntes -->
+<section id="apuntes" class="wrap section" aria-labelledby="titular-apuntes">
+<div class="split">
+<div class="split-text">
+<p class="mono eyebrow" id="apuntes-etiqueta">Nº 04 — Apuntes · en construcción</p>
+<h2 class="serif h2" id="titular-apuntes">Los apuntes de todos, <span class="hl">para todos.</span></h2>
+<p class="lede" id="apuntes-lede">Estamos construyendo una app para organizar los apuntes de la ETSII por curso y asignatura. Aún no está abierta, pero ya estamos reuniendo apuntes.</p>
+<div class="actions">
+<a href="mailto:astra.etsii@gmail.com?subject=Quiero%20compartir%20mis%20apuntes" class="btn-ink" id="apuntes-primario">Comparte tus apuntes</a>
+<a href="#unete" class="btn-line" id="apuntes-secundario">Hazte miembro y te avisamos</a>
+</div>
+</div>
+<div class="split-art">
+<div class="sheets" aria-hidden="true">
+<div class="sheet s1"><p class="mono">1º · Grado</p><p class="serif">Tu asignatura</p><p class="hand">por alguien de 3º</p></div>
+<div class="sheet s3"><p class="mono">2º · Grado</p><p class="serif">La que se atraganta</p><p class="hand">por quien la aprobó</p></div>
+<div class="sheet s2"><p class="mono">Por curso y asignatura</p><p class="serif">App de apuntes ASTRA</p><p class="hand">por la comunidad</p><p class="hand list">— resúmenes<br>— ejercicios resueltos<br>— exámenes anteriores</p></div>
+<span class="stamp" id="apuntes-sello">Próximamente</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Bitácora -->
+<section id="bitacora" class="wrap section" aria-labelledby="titular-bitacora">
+<p class="mono eyebrow">Nº 05 — Bitácora</p>
+<div class="empty-card" id="bitacora-vacia">
+<img class="bob" src="assets/img/mascota.png" alt="" width="283" height="287" loading="lazy">
+<div class="empty-card-body">
+<h2 class="serif" id="titular-bitacora">Estamos llenando <span class="hl">la bitácora.</span></h2>
+<p>Mientras tanto, todo lo que hacemos lo vas a ver antes en Instagram.</p>
+</div>
+<a href="https://www.instagram.com/astra.etsii" class="btn-ink" data-instagram>Seguir a @astra.etsii</a>
+</div>
+<div id="bitacora-fotos" hidden>
+<h2 class="serif h2 log-title" id="titular-bitacora-fotos">Lo que ya <span class="hl">hemos hecho</span></h2>
+<div class="polaroids" id="bitacora-grid"></div>
+<p class="log-more">Más en <a href="https://www.instagram.com/astra.etsii" class="link-min" data-instagram>@astra.etsii</a></p>
+</div>
+</section>
+
+<!-- Únete -->
+<section id="unete" class="wrap join" aria-labelledby="titular-unete">
+<div class="join-inner">
+<img class="bob join-mascot" src="assets/img/mascota-orbita.png" alt="Astralita, la mascota de ASTRA" width="475" height="346" loading="lazy">
+<p class="mono">Nº 06 — Únete</p>
+<h2 class="serif" id="titular-unete">Hay un <span class="hl">hueco</span> en la constelación.</h2>
+<p class="join-lede">Únete a las <span data-miembros>33</span> personas de la ETSII que ya forman parte de ASTRA y decide con nosotros qué hacemos este curso.</p>
+<ol id="pasos" class="steps">
+<li><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="tick" pathLength="1" d="M5 12.5l4.5 4.5L19 7"></path></svg></span><span><b>Rellena el formulario</b>, online o en persona.</span></li>
+<li><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="tick" pathLength="1" d="M5 12.5l4.5 4.5L19 7"></path></svg></span><span><b>Fírmalo.</b></span></li>
+<li><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="tick" pathLength="1" d="M5 12.5l4.5 4.5L19 7"></path></svg></span><span><b>Entrega tu justificante de matrícula</b> de la Universidad de Sevilla.</span></li>
+</ol>
+<a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=TmhK77WBHEmpjsezG-bEaWFeOwYvt0BBrL5kpqT_PyRUNDlWQlNWME44R1oxSkNFN0RUWEcxUkpFUy4u" class="btn-ink btn-lg" id="form-link" target="_blank" rel="noopener">Rellenar el formulario
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+<p class="hand note">gratis, solo para estudiantes de la US</p>
+</div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="wrap footer-inner">
+<div class="footer-brand">
+<img src="assets/img/logo-a.png" alt="" width="40" height="40" loading="lazy">
+<div>
+<p class="brand">ASTRA</p>
+<p>Asociación de Técnicas de estudio y Rendimiento Académico · ETSII, Universidad de Sevilla</p>
+</div>
+</div>
+<div class="footer-links">
+<a href="https://www.instagram.com/astra.etsii" class="link-min" data-instagram>Instagram</a>
+<a href="mailto:astra.etsii@gmail.com" class="link-min" data-email>astra.etsii@gmail.com</a>
+</div>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

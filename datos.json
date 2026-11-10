@@ -1,0 +1,26 @@
+{
+  "miembros": 33,
+  "contacto": {
+    "email": "astra.etsii@gmail.com",
+    "instagram": "https://www.instagram.com/astra.etsii"
+  },
+  "formularioInscripcion": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=TmhK77WBHEmpjsezG-bEaWFeOwYvt0BBrL5kpqT_PyRUNDlWQlNWME44R1oxSkNFN0RUWEcxUkpFUy4u",
+  "mentorias": {
+    "pedirUrl": "mailto:astra.etsii@gmail.com?subject=Quiero%20un%20mentor%20o%20mentora",
+    "ofrecerUrl": "mailto:astra.etsii@gmail.com?subject=Quiero%20ser%20mentor%20o%20mentora"
+  },
+  "apuntes": {
+    "disponible": false,
+    "url": "",
+    "compartirUrl": "mailto:astra.etsii@gmail.com?subject=Quiero%20compartir%20mis%20apuntes"
+  },
+  "proximaActividad": {
+    "titulo": "Asamblea General de Inicio de Curso",
+    "descripcion": "Presentamos el plan de ASTRA para este curso y decidimos juntos qué hacemos. Trae tus ideas.",
+    "inicio": "2026-11-20T12:30:00+01:00",
+    "fin": "2026-11-20T13:30:00+01:00",
+    "lugar": "Aula A2.11, ETSII",
+    "abierta": true
+  },
+  "bitacora": []
+}

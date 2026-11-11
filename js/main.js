@@ -92,6 +92,8 @@
   function paintContacto(c) {
     if (!c) return;
     if (c.instagram) $$('[data-instagram]').forEach(function (a) { a.href = c.instagram; });
+    if (c.linkedin) $$('[data-linkedin]').forEach(function (a) { a.href = c.linkedin; });
+    if (c.discord) $$('[data-discord]').forEach(function (a) { a.href = c.discord; });
     if (c.email) $$('[data-email]').forEach(function (a) { a.href = 'mailto:' + c.email; a.textContent = c.email; });
   }
 

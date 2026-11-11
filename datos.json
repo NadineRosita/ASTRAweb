@@ -18,6 +18,14 @@
   },
   "eventos": [
     {
+      "titulo": "Evento de prueba",
+      "descripcion": "Lo ves?",
+      "inicio": "2026-11-11T17:30:00+01:00",
+      "fin": "2026-11-11T18:30:00+01:00",
+      "lugar": "Mi casica",
+      "abierta": true
+    },
+    {
       "titulo": "Asamblea General de Inicio de Curso",
       "descripcion": "Presentamos el plan de ASTRA para este curso y decidimos juntos qué hacemos. Trae tus ideas.",
       "inicio": "2026-11-20T12:30:00+01:00",

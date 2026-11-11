@@ -16,13 +16,15 @@
     "url": "",
     "compartirUrl": "mailto:astra.etsii@gmail.com?subject=Quiero%20compartir%20mis%20apuntes"
   },
-  "proximaActividad": {
-    "titulo": "Asamblea General de Inicio de Curso",
-    "descripcion": "Presentamos el plan de ASTRA para este curso y decidimos juntos qué hacemos. Trae tus ideas.",
-    "inicio": "2026-11-20T12:30:00+01:00",
-    "fin": "2026-11-20T13:30:00+01:00",
-    "lugar": "Aula A2.11, ETSII",
-    "abierta": true
-  },
+  "eventos": [
+    {
+      "titulo": "Asamblea General de Inicio de Curso",
+      "descripcion": "Presentamos el plan de ASTRA para este curso y decidimos juntos qué hacemos. Trae tus ideas.",
+      "inicio": "2026-11-20T12:30:00+01:00",
+      "fin": "2026-11-20T13:30:00+01:00",
+      "lugar": "Aula A2.11, ETSII",
+      "abierta": true
+    }
+  ],
   "bitacora": []
 }

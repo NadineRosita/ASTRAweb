@@ -125,15 +125,36 @@
     if ($('proxima').classList.contains('on')) $$('.hl', h).forEach(function (x) { x.classList.add('on'); });
   }
 
+  function gcalUrl(a) {
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent((a.titulo || '') + ' · ASTRA') +
+      '&dates=' + utcStamp(a.inicio) + '/' + utcStamp(a.fin) +
+      '&location=' + encodeURIComponent((a.lugar ? a.lugar + ', ' : '') + 'Universidad de Sevilla');
+  }
+
+  // Convierte la lista de datos.json en eventos válidos, futuros y ordenados por fecha
+  function normalizeEventos(list) {
+    var now = Date.now();
+    return (Array.isArray(list) ? list : []).map(function (e) {
+      var inicio = e && e.inicio ? new Date(e.inicio) : null;
+      if (!inicio || isNaN(inicio)) return null;
+      var fin = e.fin ? new Date(e.fin) : null;
+      if (!fin || isNaN(fin) || fin <= inicio) fin = new Date(inicio.getTime() + 2 * 3600000);
+      return {
+        titulo: e.titulo || '', descripcion: e.descripcion || '', lugar: e.lugar || '',
+        abierta: !!e.abierta, titularSeccion: e.titularSeccion || '', inicio: inicio, fin: fin
+      };
+    }).filter(function (e) { return e && e.fin.getTime() > now; })
+      .sort(function (a, b) { return a.inicio - b.inicio; });
+  }
+
+  // a: el próximo evento ya normalizado, o null si no hay ninguno
   function paintProxima(a) {
     var ticket = $('ticket');
     var empty = $('proxima-vacia');
     var now = new Date();
-    var inicio = a && a.inicio ? new Date(a.inicio) : null;
-    var fin = a && a.fin ? new Date(a.fin) : (inicio ? new Date(inicio.getTime() + 2 * 3600000) : null);
-    var vigente = a && inicio && !isNaN(inicio) && fin && fin.getTime() > now.getTime();
 
-    if (!vigente) {
+    if (!a) {
       ticket.hidden = true;
       empty.hidden = false;
       setProximaHeading(false, 'Nuestra *próxima actividad*');
@@ -148,26 +169,158 @@
     setProximaHeading(esDefecto, a.titularSeccion);
     setText('rail-label-proxima', esDefecto ? 'Asamblea' : 'Actividad');
 
-    var p = madridParts(inicio);
+    var p = madridParts(a.inicio);
     setText('act-dia', p.day);
     setText('act-fecha', p.month + ' · ' + p.hour + ':' + p.minute);
-    setText('act-titulo', a.titulo || '');
-    setText('act-desc', a.descripcion || '');
+    setText('act-titulo', a.titulo);
+    setText('act-desc', a.descripcion);
     setText('act-lugar', a.lugar ? 'Lugar · ' + a.lugar : '');
     $('act-abierta').hidden = !a.abierta;
     $('act-abierta').textContent = a.lugar ? ' ·  Abierta a todo el mundo, seas o no de ASTRA' : 'Abierta a todo el mundo, seas o no de ASTRA';
+    $('act-cal').href = gcalUrl(a);
 
-    var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + encodeURIComponent((a.titulo || '') + ' · ASTRA') +
-      '&dates=' + utcStamp(inicio) + '/' + utcStamp(fin) +
-      '&location=' + encodeURIComponent((a.lugar ? a.lugar + ', ' : '') + 'Universidad de Sevilla');
-    $('act-cal').href = url;
-
-    var days = madridDayNumber(inicio) - madridDayNumber(now);
+    var days = madridDayNumber(a.inicio) - madridDayNumber(now);
     var txt = 'faltan ' + days + ' días';
     if (days === 1) txt = '¡es mañana!';
     if (days <= 0) txt = '¡es hoy!';
     setText('act-cuenta', txt + ' ✎');
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Calendario de eventos                                               */
+  /* ------------------------------------------------------------------ */
+  var cal = { events: [], y: 0, m: 0, sel: null };
+
+  function dayKey(date) {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: MADRID, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function mk(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function utcDate(y, m, d) { return new Date(Date.UTC(y, m, d)); }
+  function fmtUTC(date, opts) {
+    opts.timeZone = 'UTC';
+    return new Intl.DateTimeFormat('es-ES', opts).format(date);
+  }
+
+  function calCountByDay() {
+    var map = {};
+    cal.events.forEach(function (e) {
+      var k = dayKey(e.inicio);
+      map[k] = (map[k] || 0) + 1;
+    });
+    return map;
+  }
+
+  function calRenderGrid() {
+    var y = cal.y, m = cal.m;
+    setText('cal-mes', fmtUTC(utcDate(y, m, 1), { month: 'long' }) + ' ' + y);
+    var box = $('cal-dias');
+    clear(box);
+    var counts = calCountByDay();
+    var today = dayKey(new Date());
+    var lead = (utcDate(y, m, 1).getUTCDay() + 6) % 7; // semana que empieza en lunes
+    var total = utcDate(y, m + 1, 0).getUTCDate();
+    var i;
+    for (i = 0; i < lead; i++) box.appendChild(mk('span', 'cal-blank'));
+    for (i = 1; i <= total; i++) {
+      var key = y + '-' + pad2(m + 1) + '-' + pad2(i);
+      var n = counts[key] || 0;
+      var cell;
+      if (n) {
+        cell = mk('button', 'cal-day has', String(i));
+        cell.type = 'button';
+        cell.setAttribute('data-key', key);
+        cell.setAttribute('aria-pressed', cal.sel === key ? 'true' : 'false');
+        cell.setAttribute('aria-label', i + ' de ' + fmtUTC(utcDate(y, m, 1), { month: 'long' }) + ': ' + n + (n === 1 ? ' evento' : ' eventos'));
+        if (cal.sel === key) cell.classList.add('sel');
+      } else {
+        cell = mk('span', 'cal-day', String(i));
+      }
+      if (key === today) cell.classList.add('today');
+      box.appendChild(cell);
+    }
+  }
+
+  function calRenderList() {
+    var list = $('cal-lista');
+    clear(list);
+    var shown = cal.sel
+      ? cal.events.filter(function (e) { return dayKey(e.inicio) === cal.sel; })
+      : cal.events;
+    var t = 'Próximos eventos';
+    if (cal.sel) {
+      var p = cal.sel.split('-');
+      t = 'Eventos del ' + fmtUTC(utcDate(+p[0], +p[1] - 1, +p[2]), { day: 'numeric', month: 'long' });
+    }
+    setText('cal-agenda-titulo', t);
+    $('cal-todos').hidden = !cal.sel;
+
+    shown.forEach(function (e) {
+      var pp = madridParts(e.inicio);
+      var pf = madridParts(e.fin);
+      var li = mk('li', 'cal-ev');
+      var date = mk('div', 'cal-ev-date');
+      date.appendChild(mk('span', 'serif day', pp.day));
+      date.appendChild(mk('span', 'mono mes', pp.month));
+      var body = mk('div', 'cal-ev-body');
+      body.appendChild(mk('h4', 'serif', e.titulo));
+      var meta = pp.hour + ':' + pp.minute + ' – ' + pf.hour + ':' + pf.minute + (e.lugar ? ' · ' + e.lugar : '');
+      body.appendChild(mk('p', 'mono cal-ev-meta', meta));
+      if (e.descripcion) body.appendChild(mk('p', 'cal-ev-desc', e.descripcion));
+      if (e.abierta) body.appendChild(mk('p', 'cal-ev-open', 'Abierta a todo el mundo, seas o no de ASTRA'));
+      var a = mk('a', 'link-min', 'Añadir a mi calendario');
+      a.href = gcalUrl(e);
+      a.target = '_blank';
+      a.rel = 'noopener';
+      body.appendChild(a);
+      li.appendChild(date);
+      li.appendChild(body);
+      list.appendChild(li);
+    });
+  }
+
+  function calRender() { calRenderGrid(); calRenderList(); }
+
+  function calShiftMonth(delta) {
+    var d = utcDate(cal.y, cal.m + delta, 1);
+    cal.y = d.getUTCFullYear();
+    cal.m = d.getUTCMonth();
+    calRenderGrid();
+  }
+
+  function initCalendar() {
+    $('cal-prev').addEventListener('click', function () { calShiftMonth(-1); });
+    $('cal-next').addEventListener('click', function () { calShiftMonth(1); });
+    $('cal-todos').addEventListener('click', function () { cal.sel = null; calRender(); });
+    $('cal-dias').addEventListener('click', function (ev) {
+      var b = ev.target.closest ? ev.target.closest('button[data-key]') : null;
+      if (!b) return;
+      var k = b.getAttribute('data-key');
+      cal.sel = cal.sel === k ? null : k;
+      calRender();
+      var again = $('cal-dias').querySelector('button[data-key="' + k + '"]');
+      if (again) again.focus();
+      if (cal.sel && window.innerWidth <= 760) {
+        $('cal-agenda-titulo').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  function paintCalendario(events) {
+    cal.events = events;
+    $('calendario').hidden = !events.length;
+    if (!events.length) return;
+    var k = dayKey(events[0].inicio).split('-');
+    cal.y = +k[0];
+    cal.m = +k[1] - 1;
+    cal.sel = null;
+    calRender();
   }
 
   function paintMentorias(m) {
@@ -242,7 +395,10 @@
     if (d.formularioInscripcion) $('form-link').href = d.formularioInscripcion;
     paintMentorias(d.mentorias);
     paintApuntes(d.apuntes);
-    paintProxima(d.proximaActividad || null);
+    // "eventos" es la lista editable desde admin.html; "proximaActividad" se admite por compatibilidad
+    var eventos = normalizeEventos(d.eventos != null ? d.eventos : (d.proximaActividad ? [d.proximaActividad] : []));
+    paintProxima(eventos[0] || null);
+    paintCalendario(eventos);
     paintBitacora(d.bitacora);
   }
 
@@ -284,8 +440,8 @@
   /* ------------------------------------------------------------------ */
   /* Índice lateral, guía y progreso (rAF + scroll pasivo)               */
   /* ------------------------------------------------------------------ */
-  var IDS = ['inicio', 'proxima', 'mentorias', 'apuntes', 'bitacora', 'unete'];
-  var PTS = [[30, 20], [72, 104], [26, 188], [70, 272], [28, 356], [66, 440]];
+  var IDS = ['inicio', 'proxima', 'mentorias', 'apuntes', 'bitacora', 'ventajas', 'unete'];
+  var PTS = [[30, 20], [72, 92], [26, 164], [70, 236], [28, 308], [66, 380], [30, 452]];
 
   function initProgress() {
     var stars = $$('.rail-star');
@@ -331,9 +487,25 @@
   /* ------------------------------------------------------------------ */
   /* Arranque                                                            */
   /* ------------------------------------------------------------------ */
+  // Menú de la cabecera en móvil
+  function initNav() {
+    var btn = $('nav-toggle');
+    var nav = $('main-nav');
+    if (!btn || !nav) return;
+    function set(open) {
+      nav.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () { set(!nav.classList.contains('open')); });
+    $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  }
+
   function start() {
     renderConstellation(DEFAULT_MIEMBROS);
     initSlot();
+    initNav();
+    initCalendar();
     initReveal();
     initProgress();
     fetch('datos.json', { cache: 'no-cache' })

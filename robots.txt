@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nadinerosita.github.io/ASTRAweb/sitemap.xml

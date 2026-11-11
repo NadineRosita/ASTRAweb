@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestionar eventos — ASTRA</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1438">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&amp;family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&amp;family=JetBrains+Mono:wght@400;600;700&amp;family=Kalam:wght@400;700&amp;family=Oswald:wght@600&amp;display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+<script src="js/admin.js" defer></script>
+</head>
+<body class="admin-page">
+<div class="paper">
+
+<div class="night">
+<header class="wrap site-header">
+<a href="index.html" class="logo-link"><img src="assets/img/logo-a.png" alt="" width="46" height="46"><span class="brand">ASTRA</span></a>
+<nav class="main-nav" aria-label="Principal">
+<a href="index.html">← Ver la web</a>
+</nav>
+</header>
+</div>
+
+<main class="wrap admin">
+<p class="mono">Solo para la junta</p>
+<h1 class="serif">Gestionar eventos</h1>
+<p class="admin-intro">Aquí puedes añadir, editar y eliminar los eventos del calendario. Los cambios se guardan en el repositorio de la web y se publican solos en uno o dos minutos.</p>
+
+<!-- Acceso -->
+<section id="login" class="admin-card" aria-labelledby="login-titulo">
+<h2 class="serif" id="login-titulo">Acceder</h2>
+<p>Necesitas ser colaborador del repositorio en GitHub y pegar aquí tu <b>token personal</b>. Sin él, nadie puede cambiar nada.</p>
+<form id="login-form" autocomplete="off">
+<div class="field">
+<label for="token">Token de GitHub</label>
+<input type="password" id="token" name="token" autocomplete="off" spellcheck="false" required>
+</div>
+<label class="check"><input type="checkbox" id="recordar"> Recordarme en este dispositivo <span>(no lo marques en un ordenador compartido)</span></label>
+<details class="admin-details">
+<summary>Repositorio (normalmente no hace falta tocarlo)</summary>
+<div class="grid2">
+<div class="field"><label for="cfg-owner">Usuario u organización</label><input type="text" id="cfg-owner" spellcheck="false"></div>
+<div class="field"><label for="cfg-repo">Repositorio</label><input type="text" id="cfg-repo" spellcheck="false"></div>
+<div class="field"><label for="cfg-branch">Rama</label><input type="text" id="cfg-branch" spellcheck="false"></div>
+</div>
+</details>
+<div class="actions"><button type="submit" class="btn-ink" id="login-btn">Entrar</button></div>
+<p class="admin-msg" id="login-msg" role="alert"></p>
+</form>
+
+<details class="admin-details">
+<summary>¿Cómo consigo un token?</summary>
+<ol class="admin-steps">
+<li>Pide a quien administre el repositorio que te añada como colaborador (<i>Settings → Collaborators</i>).</li>
+<li>En GitHub abre <i>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</i>.</li>
+<li>En <i>Repository access</i> elige <b>Only select repositories</b> y marca solo el repositorio de la web.</li>
+<li>En <i>Permissions → Repository permissions</i> pon <b>Contents: Read and write</b>.</li>
+<li>Genera el token, cópialo y pégalo arriba. GitHub solo lo muestra una vez. Ponle una caducidad corta (por ejemplo, 90 días).</li>
+</ol>
+</details>
+</section>
+
+<!-- Panel -->
+<section id="panel" hidden aria-label="Panel de eventos">
+<div class="admin-bar">
+<p class="mono" id="estado" aria-live="polite"></p>
+<div class="actions">
+<button type="button" class="btn-line" id="btn-nuevo">+ Nuevo evento</button>
+<button type="button" class="btn-ink btn-sm" id="btn-guardar" disabled>Guardar y publicar</button>
+<button type="button" class="btn-line" id="btn-salir">Salir</button>
+</div>
+</div>
+<p class="admin-msg" id="msg" role="status"></p>
+
+<form id="form-evento" class="admin-card" hidden novalidate aria-labelledby="form-titulo">
+<h2 class="serif" id="form-titulo">Nuevo evento</h2>
+<div class="field">
+<label for="f-titulo">Título</label>
+<input type="text" id="f-titulo" maxlength="120" required>
+</div>
+<div class="field">
+<label for="f-desc">Descripción <span>(opcional)</span></label>
+<textarea id="f-desc" rows="3" maxlength="400"></textarea>
+</div>
+<div class="grid2">
+<div class="field">
+<label for="f-inicio">Empieza</label>
+<input type="datetime-local" id="f-inicio" required>
+</div>
+<div class="field">
+<label for="f-fin">Termina</label>
+<input type="datetime-local" id="f-fin">
+</div>
+</div>
+<p class="admin-hint">Las horas son siempre de Madrid, estés donde estés.</p>
+<div class="field">
+<label for="f-lugar">Lugar <span>(opcional)</span></label>
+<input type="text" id="f-lugar" maxlength="120">
+</div>
+<label class="check"><input type="checkbox" id="f-abierta"> Abierta a todo el mundo, seas o no de ASTRA</label>
+<p class="admin-msg" id="form-msg" role="alert"></p>
+<div class="actions">
+<button type="submit" class="btn-ink btn-sm">Aceptar</button>
+<button type="button" class="btn-line" id="btn-cancelar">Cancelar</button>
+</div>
+</form>
+
+<ul class="admin-lista" id="lista"></ul>
+<p class="admin-hint" id="vacio" hidden>No hay eventos. Pulsa «Nuevo evento» para crear el primero.</p>
+<p class="admin-hint">«Aceptar» no publica nada todavía: los cambios se aplican en la web al pulsar <b>Guardar y publicar</b>.</p>
+</section>
+
+</main>
+</div>
+</body>
+</html>

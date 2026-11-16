@@ -121,6 +121,14 @@ a:hover { color: #3A14F0; }
 .empty-card h3, .empty-card h2 { margin: 0; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.08; font-weight: 500; }
 .empty-card p { margin: 10px 0 0; font-size: 18px; line-height: 1.5; color: #3A4268; }
 
+/* ---------- Documentación ---------- */
+.docs-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 40px 32px; margin-top: 56px; }
+.docs-row .icard:first-child { transform: rotate(-.8deg); }
+.docs-row .icard:last-child { transform: rotate(.9deg); }
+.docs-row .icard .tape { left: 32px; transform: rotate(-3deg); }
+.docs-row .icard:last-child .tape { left: auto; right: 32px; transform: rotate(4deg); }
+.docs-row .icard .actions { margin-top: 4px; }
+
 /* ---------- Mentorías ---------- */
 .mentor-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 32px; margin-top: 56px; }
 .mentor-row .icard:first-child { transform: rotate(-1deg); }
